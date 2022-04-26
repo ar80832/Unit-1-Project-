@@ -1,17 +1,17 @@
-/******************************************************************************
-
-                            Online Java Compiler.
-                Code, Compile, Run and Debug java program online.
-Write your code in this editor and press "Run" button to execute it.
-
-*******************************************************************************/
 import java.util.Scanner;
+import java.io.file; 
 
 public class Wordle {
 	public static void main(String[] args) {
 		//String[] wordlist = {"java", "python", "javascript", "computer", "science"}
 		//take a list of terms from a file..ASK
-		String word = "python"; 
+		Scanner wordFile = new Scanner(new File(filename.txt));
+		ArrayList<String> words = new ArrayList<String>();
+		while(wordFile.hasNext()){
+		    words.add(wordFile.nextLine());
+		}
+		int choice = (int)(Math.random()*words.size());
+		String word = words.get(choice);
 		Scanner input = new Scanner(System.in);
 		System.out.println("The word you need to guess is " + word.length() + " characters long."); 
 		//tells user how long the word is
@@ -26,9 +26,22 @@ public class Wordle {
 		        continue;
 		    }
 		    for (int i = 0; i < word.length(); i++) {
-		        for (int j = 0; j < word.length(); j++) {
+		        if (word.substring(i, i+1).equals(guess.substring(i, i+1))) {
+		            //right placeq
 		            
 		        }
+	            else if (word.indexOf(guess.substring(i, i+1)) >= 0) {
+	                //wrong place, but letter is there
+	            else 
+	                //wrong place wrong letter
+	            }
+		        }
+		        //put in method
+		        //keep calling check guess
+		     guess 
+		     //main method call play game, supporting methods get the word from the file, get 
+		     //guess from player, supporting method for checking 
+		     //display whether they lost or won
 		    }
 		        
 		}
