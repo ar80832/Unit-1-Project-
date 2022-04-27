@@ -1,0 +1,70 @@
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.ArrayList;
+
+public class ReadFile {
+  public static void main(String[] args) {
+    ArrayList<String> words = new ArrayList<String>();      
+    try {
+      File myObj = new File("/uploads/file1.txt");
+      Scanner myReader = new Scanner(myObj);
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        System.out.println(data);
+        words.add(data);
+      }
+      myReader.close();
+    } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+	int choice = (int)(Math.random()*words.size());
+	String word = words.get(choice);    
+
+	Scanner input = new Scanner(System.in);
+	System.out.println("The word you need to guess is " + word.length() + " characters long."); 
+	System.out.println("If the letter 'W' is displayed in place of the letter of your guess, that letter is not in the word.");
+	System.out.println("If the letter 'G' is displayed in place of the letter of your guess, that letter is in the word and in the correct place.");
+	System.out.println("If the letter 'Y' is displayed in place of the letter of your guess, that letter is in the word, but not in the correct place.");
+	int n = 5; 
+	String guess = "";
+	String result = "     ";
+	for (int j = 0; j < n; j++) {
+	    System.out.println("You have " + (n-j) + " guesses left.");
+	    System.out.print("Your guess: ");
+	    guess = input.nextLine();
+	    if (guess.equals(word)) {
+	        System.out.println("Congratulations! You have guessed the word correctly: " + word);
+	        break;
+	    }
+	    else { 
+	        System.out.println(guess + " " + guess.length() + " " + word.length());
+	        if (guess.length() != word.length()) { //if the guess is not the same length as the word
+	            System.out.println("Your guess must be " + word.length() + " characters."); //tells user how long the word is
+	            continue;
+	        }
+		    else {
+		        for (int i = 0; i < word.length(); i++) {
+    		        if (word.substring(i, i+1).equals(guess.substring(i, i+1))) {
+    		            result = result.substring(0,i) + "G" + result.substring(i);
+    		        }
+    	            else if (word.indexOf(guess.substring(i, i+1)) >= 0) {
+    	                result = result.substring(0,i) + "Y" + result.substring(i);
+    	            }
+    	                //wrong place, but letter is there
+    	            else {
+    	                result = result.substring(0,i) + "W" + result.substring(i); 
+     	                //wrong place wrong letter
+    	            }
+                }
+                System.out.println(guess + "\n" + result+ "\n" );
+                result = "";
+		    }
+		    if (j == n - 1) {
+		        System.out.println("Oops! Look like you are out of guesses...");
+		    }
+	    }
+	}
+  }
+}
